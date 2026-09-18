@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Smart Tyre Health Monitor"
+description = "A premium interactive automobile engineering prototype for the 3rd SUBROS Academia Skill Olympiad 2026, demonstrating tyre condition sensing, Arduino processing, health calculation, and live results."
+version = "1.0.0"
+id = "artifacts/smart-tyre-monitor"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22021
+
+[services.development]
+run = "pnpm --filter @workspace/smart-tyre-monitor run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/smart-tyre-monitor", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/smart-tyre-monitor/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22021"
+BASE_PATH = "/"
