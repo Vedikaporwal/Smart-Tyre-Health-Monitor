@@ -69,9 +69,13 @@ h1, h2, h3, p { margin: 0; }
 .stage-code { position: absolute; z-index: 2; top: 21px; left: 23px; color: #94a3b8; font: 10px var(--app-font-mono); letter-spacing: .08em; }
 .stage-status { position: absolute; z-index: 2; right: 22px; top: 20px; display: flex; align-items: center; gap: 7px; color: #16a34a; font: 10px var(--app-font-mono); letter-spacing: .08em; }
 .stage-status i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
-.vehicle-svg { position: relative; z-index: 1; width: min(100%, 690px); filter: drop-shadow(0 26px 16px rgba(15,23,42,.16)); transition: transform .7s ease, filter .3s ease; }
+.vehicle-svg { position: relative; z-index: 1; width: min(100%, 690px); cursor: grab; filter: drop-shadow(0 26px 16px rgba(15,23,42,.16)); transform-style: preserve-3d; transition: transform .7s ease, filter .3s ease; }
+.vehicle-svg:active { cursor: grabbing; }
 .vehicle-svg.processing { animation: car-shake 1.25s ease-in-out infinite; }
-.vehicle-svg.old .tyre-fill { fill: #26313d; }
+.vehicle-svg.new .wheel { filter: saturate(1.06) brightness(1.04); }
+.vehicle-svg.normal .wheel { filter: saturate(.86); }
+.vehicle-svg.old .wheel { filter: saturate(.58) brightness(.86); }
+.vehicle-svg.processing .wheel.spinning { animation: wheel-spin .78s linear infinite; }
 .stage-tag { position: absolute; z-index: 2; bottom: 20px; left: 23px; color: #94a3b8; font: 9px var(--app-font-mono); letter-spacing: .13em; }
 .vehicle-controls { position: absolute; z-index: 4; right: 20px; bottom: 16px; display: flex; gap: 6px; }
 .icon-btn { display: inline-grid; place-items: center; width: 32px; height: 32px; color: #64748b; background: rgba(255,255,255,.84); border: 1px solid #e2e8f0; border-radius: 8px; }
@@ -203,6 +207,7 @@ h1, h2, h3, p { margin: 0; }
 .footer-note { color: #94a3b8; font: 10px var(--app-font-mono); letter-spacing: .06em; }
 @keyframes signal-run { 0% { transform: translateX(0); opacity: .2; } 25% { opacity: 1; } 100% { transform: translateX(45px); opacity: 0; } }
 @keyframes car-shake { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
+@keyframes wheel-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @media (max-width: 980px) { .hero-grid, .lab-layout, .input-lab, .architecture { grid-template-columns: 1fr; } .hero { padding-top: 55px; } .hero-copy { max-width: 680px; } .vehicle-stage { min-height: 390px; } }
 @media (max-width: 760px) {
   .wrap { width: min(100% - 28px, 610px); } .site-header { height: 66px; } .nav-links, .header-demo { display: none; } .menu-button { display: inline-grid; place-items: center; }

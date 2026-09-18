@@ -29,7 +29,7 @@ export function VehicleVisual({ condition, processing }: VehicleVisualProps) {
   };
 
   const treadOpacity = condition === 'new' ? .9 : condition === 'normal' ? .58 : .28;
-  const wheelRotation = processing ? 'rotate(360deg)' : 'rotate(0deg)';
+  const treadWidth = condition === 'new' ? 3 : condition === 'normal' ? 2.25 : 1.6;
   return (
     <>
     <svg
@@ -66,19 +66,21 @@ export function VehicleVisual({ condition, processing }: VehicleVisualProps) {
       <path d="M171 214H595" stroke="#fa8b88" strokeWidth="2" opacity=".7" />
       <path d="M133 259H180M565 259H625" stroke="#f7b2b0" strokeWidth="5" strokeLinecap="round" />
       <path d="M204 179L174 218M566 178L596 218" stroke="#6f0c12" strokeWidth="6" opacity=".7" />
-      <g className="wheel wheel-front" style={{ transformOrigin: '560px 267px', transform: wheelRotation, transition: processing ? 'transform 1.2s linear' : 'transform .4s ease' }}>
+      <g className={`wheel wheel-front ${processing ? 'spinning' : ''}`} style={{ transformOrigin: '560px 267px' }}>
         <circle cx="560" cy="267" r="48" fill="#1c2732" stroke="#0f172a" strokeWidth="5" />
         <circle cx="560" cy="267" r="33" fill="#94a3b8" stroke="#334155" strokeWidth="4" />
         <circle cx="560" cy="267" r="11" fill="#e2e8f0" />
         <path d="M560 229V305M522 267H598M533 240L587 294M587 240L533 294" stroke="#475569" strokeWidth="4" />
-        <circle cx="560" cy="267" r="44" fill="url(#tread)" opacity=".66" />
+        <circle cx="560" cy="267" r="44" fill="url(#tread)" opacity={treadOpacity} />
+        <circle cx="560" cy="267" r="46" fill="none" stroke="#0f172a" strokeWidth={treadWidth} opacity=".65" strokeDasharray={condition === 'new' ? '6 5' : condition === 'normal' ? '8 8' : '12 10'} />
       </g>
-      <g className="wheel wheel-back" style={{ transformOrigin: '205px 267px', transform: wheelRotation, transition: processing ? 'transform 1.2s linear' : 'transform .4s ease' }}>
+      <g className={`wheel wheel-back ${processing ? 'spinning' : ''}`} style={{ transformOrigin: '205px 267px' }}>
         <circle cx="205" cy="267" r="48" fill="#1c2732" stroke="#0f172a" strokeWidth="5" />
         <circle cx="205" cy="267" r="33" fill="#94a3b8" stroke="#334155" strokeWidth="4" />
         <circle cx="205" cy="267" r="11" fill="#e2e8f0" />
         <path d="M205 229V305M167 267H243M178 240L232 294M232 240L178 294" stroke="#475569" strokeWidth="4" />
-        <circle cx="205" cy="267" r="44" fill="url(#tread)" opacity=".66" />
+        <circle cx="205" cy="267" r="44" fill="url(#tread)" opacity={treadOpacity} />
+        <circle cx="205" cy="267" r="46" fill="none" stroke="#0f172a" strokeWidth={treadWidth} opacity=".65" strokeDasharray={condition === 'new' ? '6 5' : condition === 'normal' ? '8 8' : '12 10'} />
       </g>
       <path d="M118 264H652" stroke="#0f172a" strokeWidth="3" opacity=".12" />
       <g fill="#f8fafc" opacity=".78">

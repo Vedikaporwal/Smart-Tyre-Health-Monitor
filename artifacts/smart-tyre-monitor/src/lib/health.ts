@@ -51,7 +51,32 @@ export function calculateHealth(readings: SensorReadings): HealthResult {
       aging < 66 ? CONDITION_PRESETS.normal : CONDITION_PRESETS.old;
   const thermalPenalty = Math.abs(temperature - profile.temperature) * 0.12;
   const pressurePenalty = Math.abs(pressure - profile.pressure) * 0.9;
-  const health = Math.round(clamp(agingBase - thermalPenalty - pressurePenalty, 0, 100));
+  const freshRange =
+    temperature >= 20 && temperature <= 35 &&
+    pressure >= 32 && pressure <= 35 &&
+    aging >= 0 && aging <= 30;
+  const normalRange =
+    temperature > 35 && temperature <= 55 &&
+    pressure >= 29 && pressure <= 32 &&
+    aging > 30 && aging <= 65;
+  const weakSignal =
+    temperature > 55 ||
+    pressure < 29 ||
+    pressure > 35 ||
+    aging > 65;
+
+  // The aging curve gives the model a smooth score, while these gates keep
+  // clearly unsafe demo packets from being reported as FRESH.
+  let health = clamp(agingBase - thermalPenalty - pressurePenalty, 0, 100);
+  if (weakSignal) {
+    health = Math.min(health, 49);
+  } else if (freshRange) {
+    health = Math.max(health, 80);
+  } else if (normalRange || temperature < 20) {
+    health = Math.min(health, 79);
+  }
+
+  health = Math.round(health);
   const status = statusForHealth(health);
   const explanation =
     status === 'FRESH'
