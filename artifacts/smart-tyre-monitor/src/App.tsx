@@ -11,6 +11,7 @@ import { SensorCard } from './components/sensor-card';
 import { TechnicalExplanation } from './components/technical-explanation';
 import { VehicleVisual } from './components/vehicle-visual';
 import { Workflow } from './components/workflow';
+import subrosLogo from './assets/subros-logo.png';
 import {
   calculateHealth,
   CONDITION_PRESETS,
@@ -48,7 +49,7 @@ function Header({ onDemo }: { onDemo: () => void }) {
     <header className="site-header">
       <div className="wrap header-inner">
         <a className="brand-lockup" href="#home" onClick={() => setMenuOpen(false)} data-testid="link-home">
-          <img className="brand-logo" src="/assets/subros-logo.png" alt="Subros" />
+          <img className="brand-logo" src={subrosLogo} alt="Subros" />
           <span className="brand-context"><strong>ACADEMIA</strong><span>SKILL OLYMPIAD 2026</span></span>
         </a>
         <nav className="nav-links" aria-label="Main navigation">
