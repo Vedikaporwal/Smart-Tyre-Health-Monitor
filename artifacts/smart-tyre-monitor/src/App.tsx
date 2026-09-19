@@ -11,6 +11,7 @@ import { SensorCard } from './components/sensor-card';
 import { TechnicalExplanation } from './components/technical-explanation';
 import { VehicleVisual } from './components/vehicle-visual';
 import { Workflow } from './components/workflow';
+import { PhoneMonitor } from './components/phone-monitor';
 import subrosLogo from './assets/subros-logo.png';
 import {
   calculateHealth,
@@ -36,6 +37,7 @@ const navItems = [
   ['SYSTEM', 'system'],
   ['LIVE DATA', 'live-data'],
   ['WORKFLOW', 'workflow'],
+  ['PHONE', 'phone'],
   ['TECHNICAL', 'technical'],
 ];
 
@@ -280,9 +282,11 @@ function AppPage() {
           </div>
         </section>
 
+        <PhoneMonitor result={result} />
+
         <section className="section section-alt" id="technical">
           <div className="wrap">
-            <div className="section-head"><div><span className="section-kicker">04 / Technical clarity</span><h2>Built to be explained.</h2></div><p>The architecture is intentionally legible: every measurement has a reason, every output has a path.</p></div>
+            <div className="section-head"><div><span className="section-kicker">05 / Technical clarity</span><h2>Built to be explained.</h2></div><p>The architecture is intentionally legible: every measurement has a reason, every output has a path.</p></div>
             <div className="architecture">
               <div className="arch-list">
                 {[
