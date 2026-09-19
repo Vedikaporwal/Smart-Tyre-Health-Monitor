@@ -48,8 +48,8 @@ function Header({ onDemo }: { onDemo: () => void }) {
     <header className="site-header">
       <div className="wrap header-inner">
         <a className="brand-lockup" href="#home" onClick={() => setMenuOpen(false)} data-testid="link-home">
-          <span className="brand-mark">S</span>
-          <span><strong>SUBROS / ACADEMIA</strong><span>SKILL OLYMPIAD 2026</span></span>
+          <img className="brand-logo" src="/assets/subros-logo.png" alt="Subros" />
+          <span className="brand-context"><strong>ACADEMIA</strong><span>SKILL OLYMPIAD 2026</span></span>
         </a>
         <nav className="nav-links" aria-label="Main navigation">
           {navItems.map(([label, id]) => <a href={`#${id}`} key={id} onClick={() => navigate(id)} data-testid={`link-nav-${id}`}>{label}</a>)}

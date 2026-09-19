@@ -35,10 +35,10 @@ button:focus-visible, input:focus-visible, a:focus-visible { outline: 3px solid 
 .wrap { width: min(1240px, calc(100% - 40px)); margin: 0 auto; }
 .site-header { position: sticky; top: 0; z-index: 50; height: 76px; border-bottom: 1px solid rgba(226,232,240,.84); background: rgba(255,255,255,.9); backdrop-filter: blur(16px); }
 .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.brand-lockup { display: flex; align-items: center; gap: 11px; color: #0f172a; text-decoration: none; }
-.brand-mark { width: 30px; height: 30px; display: grid; place-items: center; color: white; background: #d71920; border-radius: 8px; font-weight: 700; transform: skew(-10deg); }
-.brand-lockup strong { display: block; font-size: 12px; letter-spacing: .08em; }
-.brand-lockup span { display: block; color: #64748b; font: 10px var(--app-font-mono); letter-spacing: .06em; }
+.brand-lockup { display: flex; align-items: center; gap: 12px; color: #0f172a; text-decoration: none; }
+.brand-logo { display: block; width: 92px; height: auto; object-fit: contain; }
+.brand-context strong { display: block; font-size: 11px; letter-spacing: .12em; }
+.brand-context span { display: block; margin-top: 3px; color: #64748b; font: 9px var(--app-font-mono); letter-spacing: .06em; }
 .nav-links { display: flex; align-items: center; gap: 4px; }
 .nav-links a { padding: 9px 13px; color: #64748b; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-decoration: none; border-radius: 8px; }
 .nav-links a:hover { color: #d71920; background: #fde8e9; }
