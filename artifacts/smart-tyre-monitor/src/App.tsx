@@ -12,6 +12,7 @@ import { TechnicalExplanation } from './components/technical-explanation';
 import { VehicleVisual } from './components/vehicle-visual';
 import { Workflow } from './components/workflow';
 import { PhoneMonitor } from './components/phone-monitor';
+import { FourTyreMonitor } from './components/four-tyre-monitor';
 import subrosLogo from './assets/subros-logo.png';
 import {
   calculateHealth,
@@ -245,6 +246,7 @@ function AppPage() {
               <div><span className="section-kicker">02 / Sensor input</span><h2>Live tyre data</h2></div>
               <p>Three inputs, one readable health signal. Values are surfaced as instrumentation, not hidden in a dashboard.</p>
             </div>
+            <FourTyreMonitor condition={condition} />
             <div className="sensors-grid">
               <SensorCard title="TEMPERATURE" value={`${readings.temperature.toFixed(1)} °C`} description="Monitors tyre thermal condition." percentage={(readings.temperature / 75) * 100} icon={Thermometer} testId="temperature" />
               <SensorCard title="PRESSURE" value={`${readings.pressure.toFixed(1)} PSI`} description="Monitors tyre inflation condition." percentage={(readings.pressure / 40) * 100} icon={Gauge} testId="pressure" />

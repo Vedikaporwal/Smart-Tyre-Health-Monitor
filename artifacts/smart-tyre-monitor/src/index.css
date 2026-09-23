@@ -138,6 +138,60 @@ h1, h2, h3, p { margin: 0; }
 .sensor-card p { margin-top: 8px; color: #94a3b8; font-size: 12px; }
 .meter { height: 5px; margin-top: 18px; overflow: hidden; background: #eef2f6; border-radius: 7px; }
 .meter span { display: block; height: 100%; background: #d71920; border-radius: inherit; transition: width .5s ease; }
+.four-tyre-dashboard { margin-bottom: 24px; padding: 22px; background: rgba(255,255,255,.9); border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 12px 34px rgba(15,23,42,.06); }
+.four-tyre-topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-bottom: 18px; border-bottom: 1px solid #eef2f6; }
+.four-tyre-topbar h3 { margin-top: 8px; color: #0f172a; font-size: 21px; letter-spacing: -.03em; }
+.connection-cluster { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 12px; color: #64748b; font: 10px var(--app-font-mono); letter-spacing: .05em; }
+.connection-cluster span { display: inline-flex; align-items: center; gap: 5px; }
+.connection-cluster svg { color: #64748b; }
+.live-indicator { color: #16a34a !important; }
+.live-indicator i { width: 7px; height: 7px; background: #16a34a; border-radius: 50%; box-shadow: 0 0 0 4px rgba(22,163,74,.11); animation: live-pulse 1.4s ease-in-out infinite; }
+.four-tyre-content { display: grid; grid-template-columns: 1.08fr .92fr; gap: 18px; margin-top: 18px; }
+.tyre-telemetry-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+.tyre-telemetry-card { padding: 17px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; }
+.tyre-telemetry-card.low { border-color: #fed7aa; background: #fffaf3; }
+.tyre-telemetry-card.high { border-color: #fecaca; background: #fff8f8; }
+.tyre-card-heading { display: flex; align-items: start; justify-content: space-between; gap: 8px; }
+.tyre-position { display: inline-grid; place-items: center; width: 27px; height: 27px; margin-right: 8px; color: #fff; background: #0f172a; border-radius: 7px; font: 600 10px var(--app-font-mono); vertical-align: middle; }
+.tyre-card-heading strong { color: #334155; font-size: 10px; letter-spacing: .08em; }
+.pressure-status { padding: 5px 7px; border-radius: 5px; color: #15803d; background: #dcfce7; font: 600 9px var(--app-font-mono); letter-spacing: .06em; }
+.pressure-status.low { color: #b45309; background: #fef3c7; }
+.pressure-status.high { color: #b91c1c; background: #fee2e2; }
+.tyre-pressure { display: flex; align-items: baseline; gap: 6px; margin-top: 15px; }
+.tyre-pressure strong { color: #0f172a; font: 600 30px var(--app-font-mono); letter-spacing: -.08em; }
+.tyre-pressure span { color: #64748b; font: 600 11px var(--app-font-mono); }
+.tyre-live-line { display: flex; align-items: center; gap: 6px; margin-top: 4px; color: #16a34a; font: 9px var(--app-font-mono); letter-spacing: .04em; }
+.tyre-live-line i { width: 5px; height: 5px; background: #16a34a; border-radius: 50%; }
+.tyre-metrics { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; margin: 17px 0 0; padding-top: 13px; border-top: 1px solid #e2e8f0; }
+.tyre-metrics div { min-width: 0; }
+.tyre-metrics dt { display: flex; align-items: center; gap: 4px; color: #94a3b8; font: 9px var(--app-font-mono); }
+.tyre-metrics dt svg { color: #d71920; }
+.tyre-metrics dd { margin: 5px 0 0; color: #334155; font: 600 11px var(--app-font-mono); }
+.top-view-stage { position: relative; min-height: 390px; overflow: hidden; background: linear-gradient(145deg,#f8fafc,#eef2f6); border: 1px solid #e2e8f0; border-radius: 15px; }
+.top-view-label { position: absolute; top: 16px; left: 17px; z-index: 2; display: flex; align-items: center; gap: 6px; color: #94a3b8; font: 9px var(--app-font-mono); letter-spacing: .07em; }
+.top-view-car { position: absolute; top: 12%; left: 36%; width: 28%; height: 76%; background: linear-gradient(90deg,#be1820,#e03b3d 50%,#a81018); border: 3px solid #8e1017; border-radius: 46% 46% 35% 35%; box-shadow: 8px 10px 22px rgba(15,23,42,.18); }
+.top-view-car::before { content: ''; position: absolute; inset: 7% 15% 58%; background: linear-gradient(90deg,#475569,#cbd5e1 50%,#475569); border: 2px solid #7b8794; border-radius: 42% 42% 16% 16%; }
+.top-view-car::after { content: ''; position: absolute; left: 10%; right: 10%; top: 49%; height: 2px; background: rgba(255,255,255,.42); }
+.top-view-windshield { position: absolute; z-index: 1; top: 12%; left: 20%; width: 60%; height: 17%; border-bottom: 2px solid rgba(255,255,255,.45); }
+.top-view-cabin { position: absolute; z-index: 1; top: 32%; left: 18%; width: 64%; height: 33%; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.32); border-radius: 30%; color: rgba(255,255,255,.7); font: 8px var(--app-font-mono); letter-spacing: .08em; }
+.top-view-hood { position: absolute; bottom: 6%; left: 18%; width: 64%; height: 19%; border-top: 2px solid rgba(255,255,255,.35); border-radius: 50%; }
+.top-view-tyre { position: absolute; z-index: 3; width: 26px; height: 65px; display: grid; place-items: center; background: #1c2732; border: 3px solid #0f172a; border-radius: 8px; box-shadow: 0 5px 10px rgba(15,23,42,.18); }
+.top-view-tyre::after { content: ''; position: absolute; inset: 7px 5px; border-left: 2px dashed #94a3b8; border-right: 2px dashed #94a3b8; opacity: .8; }
+.top-view-tyre span { position: relative; z-index: 1; color: #f8fafc; font: 600 7px var(--app-font-mono); writing-mode: vertical-rl; }
+.top-view-tyre.fl { top: 20%; left: 22%; } .top-view-tyre.fr { top: 20%; right: 22%; } .top-view-tyre.rl { bottom: 20%; left: 22%; } .top-view-tyre.rr { right: 22%; bottom: 20%; }
+.top-view-tyre.low { border-color: #d97706; } .top-view-tyre.high { border-color: #dc2626; }
+.top-view-legend { position: absolute; right: 15px; bottom: 14px; display: flex; gap: 10px; color: #94a3b8; font: 9px var(--app-font-mono); }
+.top-view-legend span { display: inline-flex; align-items: center; gap: 4px; }
+.top-view-legend i { width: 6px; height: 6px; display: inline-block; background: #16a34a; border-radius: 50%; }
+.top-view-legend i.low { background: #f59e0b; }
+.four-tyre-summary { display: flex; align-items: center; gap: 24px; margin-top: 18px; padding-top: 17px; border-top: 1px solid #eef2f6; }
+.four-tyre-summary > div:first-child span { display: block; color: #94a3b8; font: 9px var(--app-font-mono); letter-spacing: .08em; }
+.four-tyre-summary > div:first-child strong { display: block; margin-top: 5px; color: #0f172a; font: 600 24px var(--app-font-mono); }
+.overall-status { display: inline-flex; align-items: center; gap: 7px; padding: 7px 9px; color: #15803d; background: #dcfce7; border-radius: 6px; font: 600 10px var(--app-font-mono); letter-spacing: .08em; }
+.overall-status i { width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+.overall-status.normal { color: #b45309; background: #fef3c7; }
+.overall-status.weak { color: #b91c1c; background: #fee2e2; }
+.summary-note { display: inline-flex; align-items: center; gap: 6px; margin-left: auto; color: #64748b; font-size: 11px; }
 .input-lab { display: grid; grid-template-columns: .95fr 1.05fr; gap: 20px; }
 .manual-card { padding: 24px; }
 .manual-card h3, .arduino-card h3 { margin-top: 8px; color: #0f172a; font-size: 24px; letter-spacing: -.04em; }
@@ -247,6 +301,7 @@ h1, h2, h3, p { margin: 0; }
 @keyframes signal-run { 0% { transform: translateX(0); opacity: .2; } 25% { opacity: 1; } 100% { transform: translateX(45px); opacity: 0; } }
 @keyframes car-shake { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
 @keyframes wheel-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes live-pulse { 0%,100% { opacity: .55; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.1); } }
 @media (max-width: 980px) { .hero-grid, .lab-layout, .input-lab, .architecture { grid-template-columns: 1fr; } .hero { padding-top: 55px; } .hero-copy { max-width: 680px; } .vehicle-stage { min-height: 390px; } }
 @media (max-width: 760px) {
   .wrap { width: min(100% - 28px, 610px); } .site-header { height: 66px; } .nav-links, .header-demo { display: none; } .menu-button { display: inline-grid; place-items: center; }
@@ -255,6 +310,7 @@ h1, h2, h3, p { margin: 0; }
   .hero { padding: 43px 0 26px; } .hero h1 { font-size: clamp(40px, 12vw, 58px); } .hero-facts { gap: 15px; } .vehicle-stage { min-height: 286px; padding: 13px; border-radius: 19px; } .vehicle-stage::after { inset: 10px; border-radius: 15px; }
   .stage-code, .stage-status, .stage-tag { font-size: 8px; } .stage-code { top: 14px; left: 15px; } .stage-status { top: 14px; right: 15px; } .stage-tag { left: 15px; bottom: 13px; } .vehicle-controls { right: 13px; bottom: 10px; }
    .section { padding: 67px 0; } .section-head { display: block; } .section-head p { margin-top: 16px; } .sensors-grid, .compare-grid { grid-template-columns: 1fr; }
+   .four-tyre-dashboard { padding: 15px; } .four-tyre-topbar { display: block; } .four-tyre-topbar h3 { font-size: 18px; } .connection-cluster { justify-content: flex-start; margin-top: 14px; gap: 8px; } .four-tyre-content { grid-template-columns: 1fr; } .tyre-telemetry-grid { gap: 8px; } .tyre-telemetry-card { padding: 13px; } .tyre-card-heading strong { display: inline-block; max-width: 68px; line-height: 1.2; vertical-align: middle; } .tyre-pressure strong { font-size: 25px; } .tyre-metrics dt { font-size: 8px; } .tyre-metrics dd { font-size: 10px; } .top-view-stage { min-height: 330px; } .top-view-car { width: 30%; left: 35%; } .top-view-tyre.fl { left: 20%; } .top-view-tyre.fr { right: 20%; } .top-view-tyre.rl { left: 20%; } .top-view-tyre.rr { right: 20%; } .four-tyre-summary { flex-wrap: wrap; gap: 13px; } .summary-note { width: 100%; margin-left: 0; }
    .phone-monitor { padding: 67px 0; } .phone-monitor-head { display: block; } .phone-monitor-head p { margin-top: 16px; } .phone-monitor-card { grid-template-columns: 1fr; padding: 17px; } .phone-monitor-copy { padding: 4px 4px 8px; } .pairing-panel { grid-template-columns: .9fr 1.1fr; padding: 12px; } .qr-card { min-height: 216px; } .phone-preview { min-height: 232px; } .phone-screen { min-height: 200px; }
   .result-top { align-items: center; } .health-ring { width: 137px; height: 137px; } .health-ring-copy strong { font-size: 30px; } .form-grid { grid-template-columns: 1fr; }
   .flow-list { grid-template-columns: 1fr; gap: 7px; } .flow-step { padding: 16px 0 16px 18px; border-top: 0; border-left: 1px solid #cbd5e1; } .flow-step:not(:last-child)::after { content: '↓'; right: auto; left: -6px; top: auto; bottom: -14px; }
