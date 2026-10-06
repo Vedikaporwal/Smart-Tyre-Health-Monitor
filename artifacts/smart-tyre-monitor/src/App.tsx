@@ -301,7 +301,7 @@ function AppPage() {
         <section className="hero" id="home">
           <div className="wrap hero-grid">
             <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .65 }}>
-              <span className="eyebrow"><i /> 3rd SUBROS Academia Skill Olympiad 2026</span>
+              <span className="eyebrow"><i /> Idea Generation Competition</span>
               <h1>SMART TYRE <em>HEALTH</em><br />MONITORING SYSTEM</h1>
               <p className="hero-copy">An intelligent tyre-health monitoring concept combining temperature, pressure and tyre-aging parameters to evaluate tyre condition and provide an overall health indication.</p>
               <div className="hero-actions">
@@ -443,7 +443,7 @@ function AppPage() {
         </section>
       </main>
       <footer className="footer">
-        <div className="wrap footer-inner"><div><strong>SMART TYRE HEALTH MONITORING SYSTEM</strong><span>3rd SUBROS Academia Skill Olympiad 2026</span></div><div className="footer-note">INTERACTIVE DIGITAL PROTOTYPE / LOCAL DEMO DATA</div></div>
+        <div className="wrap footer-inner"><div><strong>SMART TYRE HEALTH MONITORING SYSTEM</strong><span>Idea Generation Competition</span></div><div className="footer-note">INTERACTIVE DIGITAL PROTOTYPE / LOCAL DEMO DATA</div></div>
       </footer>
 
       <AnimatePresence>
