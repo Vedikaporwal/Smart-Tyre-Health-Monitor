@@ -1,0 +1,47 @@
+<svg width="480" height="220" viewBox="0 0 480 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ringGradient" x1="64" y1="28" x2="414" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4F2C8C"/>
+      <stop offset="1" stop-color="#2D175E"/>
+    </linearGradient>
+    <linearGradient id="gearGradient" x1="120" y1="28" x2="360" y2="190" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F9A14D"/>
+      <stop offset="1" stop-color="#EE6F2B"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M80 110C80 57.3 121.3 16 174 16H306C358.7 16 400 57.3 400 110C400 162.7 358.7 204 306 204H174C121.3 204 80 162.7 80 110Z" fill="url(#ringGradient)"/>
+
+  <path d="M96 110C96 66.9 129.9 32 173 32H307C350.1 32 384 66.9 384 110C384 153.1 350.1 188 307 188H173C129.9 188 96 153.1 96 110Z" fill="#F6F7FB"/>
+  <path d="M122 110C122 78.5 147.5 52 179 52H301C332.5 52 358 78.5 358 110C358 141.5 332.5 168 301 168H179C147.5 168 122 141.5 122 110Z" fill="url(#gearGradient)"/>
+
+  <g opacity="0.35" stroke="#F3F4F6" stroke-width="8" stroke-linecap="round">
+    <path d="M125 95L95 95"/>
+    <path d="M385 95H355"/>
+    <path d="M125 125L95 125"/>
+    <path d="M385 125H355"/>
+    <path d="M191 66L170 40"/>
+    <path d="M289 66L310 40"/>
+    <path d="M191 154L170 180"/>
+    <path d="M289 154L310 180"/>
+  </g>
+
+  <g fill="#FFFFFF" opacity="0.9">
+    <circle cx="140" cy="110" r="10"/>
+    <circle cx="340" cy="110" r="10"/>
+    <circle cx="240" cy="52" r="10"/>
+    <circle cx="240" cy="168" r="10"/>
+  </g>
+
+  <g>
+    <path d="M180 132L200 78H218L236 118L254 78H272L290 132H274L263 100L247 132H232L217 100L205 132H180Z" fill="#FFFFFF"/>
+    <path d="M240 91L268 117L282 106L246 80L240 91Z" fill="#FFFFFF" opacity="0.9"/>
+  </g>
+
+  <path d="M134 52H346C337 35 323 25 306 18H174C157 25 143 35 134 52Z" fill="#F4F7FA" opacity="0.95"/>
+  <path d="M122 132H358" stroke="#EAEFF7" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+
+  <g fill="#2B1B59">
+    <text x="240" y="188" text-anchor="middle" font-size="28" font-family="Arial, Helvetica, sans-serif" font-weight="700" letter-spacing="1.2">MYBHARAT</text>
+  </g>
+</svg>

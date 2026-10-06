@@ -13,7 +13,7 @@ import { VehicleVisual } from './components/vehicle-visual';
 import { Workflow } from './components/workflow';
 import { PhoneMonitor } from './components/phone-monitor';
 import { FourTyreMonitor } from './components/four-tyre-monitor';
-import subrosLogo from './assets/subros-logo.png';
+import brandLogo from './assets/brand-logo.svg';
 import {
   DEMO_MECHANICS,
   buildDirectionsUrl,
@@ -61,8 +61,8 @@ function Header({ onDemo }: { onDemo: () => void }) {
     <header className="site-header">
       <div className="wrap header-inner">
         <a className="brand-lockup" href="#home" onClick={() => setMenuOpen(false)} data-testid="link-home">
-          <img className="brand-logo" src={subrosLogo} alt="Subros" />
-          <span className="brand-context"><strong>ACADEMIA</strong><span>SKILL OLYMPIAD 2026</span></span>
+          <img className="brand-logo" src={brandLogo} alt="MYBHARAT" />
+          <span className="brand-context"><strong>MYBHARAT</strong><span>SKILL OLYMPIAD 2026</span></span>
         </a>
         <nav className="nav-links" aria-label="Main navigation">
           {navItems.map(([label, id]) => <a href={`#${id}`} key={id} onClick={() => navigate(id)} data-testid={`link-nav-${id}`}>{label}</a>)}
