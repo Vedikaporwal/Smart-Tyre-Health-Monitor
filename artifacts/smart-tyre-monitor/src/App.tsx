@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type FormEvent } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Activity, ArrowRight, Gauge, Menu, Play, RotateCcw, Thermometer, Timer, X } from 'lucide-react';
+import { Activity, AlertTriangle, ArrowRight, Gauge, MapPinned, Menu, Navigation, Phone, Play, RotateCcw, Thermometer, Timer, X } from 'lucide-react';
 import { ErrorBoundary } from '@/components/error-boundary';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
@@ -14,6 +14,15 @@ import { Workflow } from './components/workflow';
 import { PhoneMonitor } from './components/phone-monitor';
 import { FourTyreMonitor } from './components/four-tyre-monitor';
 import subrosLogo from './assets/subros-logo.png';
+import {
+  DEMO_MECHANICS,
+  buildDirectionsUrl,
+  evaluateAssistance,
+  getTyreAssistanceTarget,
+  type AssistedMechanic,
+  type AssistanceDecision,
+  type AssistanceSeverity,
+} from './lib/assistance';
 import {
   calculateHealth,
   CONDITION_PRESETS,
@@ -82,9 +91,45 @@ function AppPage() {
   const [manual, setManual] = useState({ temperature: '42', pressure: '31', aging: '45' });
   const [manualError, setManualError] = useState('');
   const [viewReset, setViewReset] = useState(0);
+  const [assistanceStatus, setAssistanceStatus] = useState<AssistanceSeverity>('none');
+  const [assistanceDecision, setAssistanceDecision] = useState<AssistanceDecision | null>(null);
+  const [assistanceOpen, setAssistanceOpen] = useState(false);
+  const [locationMode, setLocationMode] = useState<'demo' | 'live'>('demo');
+  const [mechanics, setMechanics] = useState<AssistedMechanic[]>(DEMO_MECHANICS);
+
+  const previousPressureRef = useRef<number | null>(null);
+  const consecutiveDropRef = useRef(0);
+  const alertKeyRef = useRef<string | null>(null);
+
   const result = useMemo(() => calculateHealth(readings), [readings]);
   const processing = stage > 0 && stage < 6;
   const stageText = stageLabels[stage];
+
+  const requestCurrentLocation = useCallback(() => {
+    if (typeof navigator === 'undefined' || !('geolocation' in navigator)) {
+      setLocationMode('demo');
+      setMechanics(DEMO_MECHANICS);
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      () => {
+        setLocationMode('live');
+        setMechanics(
+          DEMO_MECHANICS.map((mechanic, index) => ({
+            ...mechanic,
+            distance: `${(1 + index * 0.7 + 0.4).toFixed(1)} km`,
+            eta: `${8 + index * 4} min`,
+          })),
+        );
+      },
+      () => {
+        setLocationMode('demo');
+        setMechanics(DEMO_MECHANICS);
+      },
+      { enableHighAccuracy: true, timeout: 6000, maximumAge: 300000 },
+    );
+  }, []);
 
   useEffect(() => {
     if (!processing) return;
@@ -117,6 +162,46 @@ function AppPage() {
     return () => window.clearInterval(interval);
   }, [simulation, simulationPaused, condition, simTick]);
 
+  useEffect(() => {
+    const previousPressure = previousPressureRef.current;
+    const pressureDelta = previousPressure === null ? 0 : Math.max(0, previousPressure - readings.pressure);
+
+    if (previousPressure !== null && pressureDelta > 0.35) {
+      consecutiveDropRef.current += 1;
+    } else if (previousPressure !== null) {
+      consecutiveDropRef.current = 0;
+    }
+
+    const decision = evaluateAssistance({
+      currentPressure: readings.pressure,
+      previousPressure,
+      currentTemperature: readings.temperature,
+      health: result.health,
+      status: result.status,
+      consecutivePressureDrops: consecutiveDropRef.current,
+      tyreIndex: Math.abs(Math.round((readings.temperature + readings.aging + readings.pressure) / 2)),
+    });
+
+    previousPressureRef.current = readings.pressure;
+
+    if (!decision) {
+      alertKeyRef.current = null;
+      setAssistanceStatus('none');
+      setAssistanceDecision(null);
+      return;
+    }
+
+    setAssistanceStatus(decision.severity);
+
+    if (alertKeyRef.current !== decision.key) {
+      alertKeyRef.current = decision.key;
+      setAssistanceDecision(decision);
+      if (decision.severity === 'emergency') {
+        setAssistanceOpen(true);
+      }
+    }
+  }, [readings, result.health, result.status]);
+
   const chooseCondition = (next: Condition) => {
     setCondition(next);
     setSlider(sliderFromCondition(next));
@@ -144,6 +229,14 @@ function AppPage() {
     setCompare(false);
     setManualError('');
     setViewReset((value) => value + 1);
+    setAssistanceStatus('none');
+    setAssistanceDecision(null);
+    setAssistanceOpen(false);
+    previousPressureRef.current = null;
+    consecutiveDropRef.current = 0;
+    alertKeyRef.current = null;
+    setLocationMode('demo');
+    setMechanics(DEMO_MECHANICS);
   };
 
   const calculateManual = (event: FormEvent<HTMLFormElement>) => {
@@ -168,9 +261,42 @@ function AppPage() {
     setStage(1);
   };
 
+  const openMechanicPanel = useCallback(() => {
+    requestCurrentLocation();
+    setAssistanceOpen(true);
+  }, [requestCurrentLocation]);
+
+  const assistanceStatusLabel =
+    assistanceStatus === 'emergency'
+      ? '🔴 Emergency assistance available'
+      : assistanceStatus === 'recommended'
+        ? '🟡 Assistance recommended'
+        : '🟢 Assistance not required';
+
+  const emergencyTyreLabel =
+    assistanceDecision?.tyreLabel ?? getTyreAssistanceTarget(Math.round((readings.temperature + readings.aging) / 10));
+
   return (
     <div className="app-shell">
       <Header onDemo={() => { startSystem(); document.getElementById('system')?.scrollIntoView({ behavior: 'smooth' }); }} />
+      <AnimatePresence>
+        {assistanceDecision && assistanceStatus !== 'none' && (
+          <motion.div
+            className={`assistance-banner ${assistanceStatus}`}
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+          >
+            <div className="assistance-banner-copy">
+              <strong>{assistanceStatus === 'emergency' ? '🚨 Critical tyre condition detected' : '⚠️ Assistance recommended'}</strong>
+              <span>{assistanceDecision.message}</span>
+            </div>
+            <button className="btn btn-primary assistance-banner-button" onClick={openMechanicPanel}>
+              Find Nearby Mechanics
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <main>
         <section className="hero" id="home">
           <div className="wrap hero-grid">
@@ -230,6 +356,14 @@ function AppPage() {
                   <div><span>CONDITION</span><strong>{CONDITION_PRESETS[condition].shortLabel}</strong></div>
                   <div><span>MODEL</span><strong>TH-2.6</strong></div>
                   <div><span>UPDATE</span><strong>{stage === 6 ? 'LIVE' : 'READY'}</strong></div>
+                </div>
+                <div className="assistance-status-row">
+                  <div className={`assistance-status ${assistanceStatus}`}>
+                    {assistanceStatusLabel}
+                  </div>
+                  {assistanceStatus !== 'none' && (
+                    <button className="text-button" onClick={openMechanicPanel}>VIEW MECHANICS</button>
+                  )}
                 </div>
                 <div className="control-row">
                   <button className="text-button" onClick={resetSystem} data-testid="button-reset-system"><RotateCcw size={13} /> RESET SYSTEM</button>
@@ -311,6 +445,82 @@ function AppPage() {
       <footer className="footer">
         <div className="wrap footer-inner"><div><strong>SMART TYRE HEALTH MONITORING SYSTEM</strong><span>3rd SUBROS Academia Skill Olympiad 2026</span></div><div className="footer-note">INTERACTIVE DIGITAL PROTOTYPE / LOCAL DEMO DATA</div></div>
       </footer>
+
+      <AnimatePresence>
+        {assistanceOpen && assistanceDecision && (
+          <motion.div className="mechanic-modal-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setAssistanceOpen(false)}>
+            <motion.aside className={`mechanic-modal ${assistanceDecision.severity}`} initial={{ opacity: 0, y: 22, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 18, scale: 0.98 }} transition={{ duration: 0.22, ease: 'easeOut' }} onClick={(event) => event.stopPropagation()}>
+              <div className="mechanic-modal-header">
+                <div>
+                  <span className="section-kicker">Emergency assistance</span>
+                  <h3>🚨 TYRE EMERGENCY DETECTED</h3>
+                </div>
+                <button className="close-button" onClick={() => setAssistanceOpen(false)} aria-label="Close mechanic assistance panel"><X size={18} /></button>
+              </div>
+
+              <p className="mechanic-modal-copy">{assistanceDecision.reason}</p>
+
+              <div className="mechanic-alert-box">
+                <div className="mechanic-alert-row">
+                  <span className="mechanic-pill">{emergencyTyreLabel}</span>
+                  <span className="mechanic-pill accent">{assistanceDecision.statusText}</span>
+                </div>
+                <div className="mechanic-values-grid">
+                  <div><span>Pressure</span><strong>{readings.pressure.toFixed(1)} PSI</strong></div>
+                  <div><span>Pressure change</span><strong>{assistanceDecision.pressureDelta.toFixed(1)} PSI</strong></div>
+                  <div><span>Temperature</span><strong>{readings.temperature.toFixed(1)} °C</strong></div>
+                  <div><span>Detection</span><strong>{assistanceDecision.reason}</strong></div>
+                </div>
+              </div>
+
+              <div className="mechanic-safety-note">
+                <AlertTriangle size={16} />
+                <span>⚠️ For safety, reduce speed and stop at a safe location before inspecting the tyre.</span>
+              </div>
+
+              <div className="mechanic-section-header">
+                <div>
+                  <span className="section-kicker">Nearby Assistance</span>
+                  <h4>Mechanics near your route</h4>
+                </div>
+                <span className="mechanic-demo-tag">{locationMode === 'live' ? 'Current location available' : 'Demo/local results'}</span>
+              </div>
+
+              <div className="mechanic-list">
+                {mechanics.map((mechanic) => (
+                  <div key={mechanic.name} className="mechanic-card">
+                    <div className="mechanic-header-row">
+                      <div>
+                        <div className="mechanic-name-row"><span className="mechanic-bolt">🔧</span><strong>{mechanic.name}</strong></div>
+                        <div className="mechanic-rating">⭐ {mechanic.rating.toFixed(1)}</div>
+                      </div>
+                      <span className={`mechanic-open ${mechanic.status === 'Open' ? 'open' : 'closed'}`}>{mechanic.status}</span>
+                    </div>
+
+                    <div className="mechanic-detail-row">
+                      <span><MapPinned size={14} /> {mechanic.distance}</span>
+                      <span><Navigation size={14} /> {mechanic.eta}</span>
+                    </div>
+
+                    <div className="mechanic-services">
+                      {mechanic.services.map((service) => <span key={service}>{service}</span>)}
+                    </div>
+
+                    <div className="mechanic-actions">
+                      <a className="mechanic-action call" href={`tel:${mechanic.phone}`}>
+                        <Phone size={14} /> Call
+                      </a>
+                      <a className="mechanic-action directions" href={buildDirectionsUrl(mechanic)} target="_blank" rel="noreferrer">
+                        <Navigation size={14} /> Get Directions
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.aside>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

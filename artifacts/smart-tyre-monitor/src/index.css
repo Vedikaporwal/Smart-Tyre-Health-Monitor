@@ -293,6 +293,55 @@ h1, h2, h3, p { margin: 0; }
 .compare-item dl { margin: 14px 0 0; }
 .compare-item dt { float: left; clear: left; width: 54%; margin-top: 7px; color: #94a3b8; font: 10px var(--app-font-mono); }
 .compare-item dd { margin: 7px 0 0; color: #0f172a; font: 600 10px var(--app-font-mono); text-align: right; }
+.assistance-status-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 16px; }
+.assistance-status { display: inline-flex; align-items: center; justify-content: center; padding: 8px 10px; border-radius: 999px; font: 600 10px var(--app-font-mono); letter-spacing: .08em; }
+.assistance-status.none { color: #166534; background: #dcfce7; }
+.assistance-status.recommended { color: #b45309; background: #fef3c7; }
+.assistance-status.emergency { color: #b91c1c; background: #fee2e2; }
+.assistance-banner { position: sticky; top: 86px; z-index: 45; display: flex; align-items: center; justify-content: space-between; gap: 18px; width: min(1240px, calc(100% - 40px)); margin: 18px auto 0; padding: 18px 20px; border-radius: 16px; border: 1px solid transparent; box-shadow: 0 18px 38px rgba(15,23,42,.12); }
+.assistance-banner.recommended { background: rgba(254,243,199,.96); border-color: rgba(245,158,11,.24); }
+.assistance-banner.emergency { background: rgba(254,226,226,.96); border-color: rgba(185,28,28,.22); }
+.assistance-banner-copy { display: grid; gap: 5px; }
+.assistance-banner-copy strong { color: #0f172a; font-size: 13px; letter-spacing: .08em; }
+.assistance-banner-copy span { color: #334155; font-size: 12px; line-height: 1.5; }
+.assistance-banner-button { min-height: 40px; padding-inline: 14px; white-space: nowrap; }
+.mechanic-modal-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 26px; background: rgba(15,23,42,.55); backdrop-filter: blur(8px); }
+.mechanic-modal { width: min(940px, calc(100vw - 32px)); max-height: min(88vh, 820px); overflow-y: auto; padding: 22px 22px 18px; background: #fff; border: 1px solid #e2e8f0; border-radius: 22px; box-shadow: 0 26px 50px rgba(15,23,42,.18); }
+.mechanic-modal.emergency { border-color: rgba(185,28,28,.2); }
+.mechanic-modal-header { display: flex; align-items: start; justify-content: space-between; gap: 14px; }
+.mechanic-modal-header h3 { margin-top: 7px; color: #0f172a; font-size: clamp(24px,3vw,36px); letter-spacing: -.06em; }
+.close-button { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid #e2e8f0; border-radius: 10px; background: white; color: #334155; }
+.mechanic-modal-copy { margin-top: 12px; color: #475569; font-size: 14px; line-height: 1.6; }
+.mechanic-alert-box { margin-top: 20px; padding: 18px; background: linear-gradient(135deg, rgba(254,226,226,.9), rgba(255,255,255,.9)); border: 1px solid rgba(185,28,28,.14); border-radius: 16px; }
+.mechanic-alert-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.mechanic-pill { display: inline-flex; align-items: center; justify-content: center; padding: 6px 9px; border: 1px solid rgba(15,23,42,.08); border-radius: 999px; background: rgba(255,255,255,.75); color: #334155; font: 600 9px var(--app-font-mono); letter-spacing: .08em; }
+.mechanic-pill.accent { color: #b91c1c; background: rgba(255,255,255,.8); border-color: rgba(185,28,28,.12); }
+.mechanic-values-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.mechanic-values-grid div { padding: 10px 12px; background: rgba(255,255,255,.75); border-radius: 12px; border: 1px solid rgba(226,232,240,.85); }
+.mechanic-values-grid span { display: block; color: #64748b; font: 9px var(--app-font-mono); letter-spacing: .08em; }
+.mechanic-values-grid strong { display: block; margin-top: 5px; color: #0f172a; font: 600 14px var(--app-font-mono); }
+.mechanic-safety-note { display: flex; align-items: start; gap: 8px; margin-top: 18px; padding: 12px 13px; color: #7c2d12; background: rgba(254,243,199,.7); border: 1px solid rgba(245,158,11,.22); border-radius: 12px; font-size: 12px; line-height: 1.5; }
+.mechanic-section-header { display: flex; align-items: end; justify-content: space-between; gap: 14px; margin-top: 20px; }
+.mechanic-section-header h4 { margin-top: 8px; color: #0f172a; font-size: 24px; letter-spacing: -.04em; }
+.mechanic-demo-tag { display: inline-flex; align-items: center; padding: 7px 9px; border-radius: 999px; background: #f8fafc; border: 1px solid #e2e8f0; color: #475569; font: 600 9px var(--app-font-mono); letter-spacing: .08em; }
+.mechanic-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+.mechanic-card { display: grid; gap: 14px; padding: 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; }
+.mechanic-header-row { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+.mechanic-name-row { display: flex; align-items: center; gap: 8px; }
+.mechanic-name-row strong { color: #0f172a; font-size: 16px; }
+.mechanic-bolt { display: inline-grid; place-items: center; width: 24px; height: 24px; background: rgba(215,25,32,.08); border-radius: 8px; color: #b51218; }
+.mechanic-rating { margin-top: 5px; color: #b45309; font: 600 12px var(--app-font-mono); }
+.mechanic-open { display: inline-flex; align-items: center; justify-content: center; padding: 5px 8px; border-radius: 999px; font: 600 9px var(--app-font-mono); letter-spacing: .08em; }
+.mechanic-open.open { color: #166534; background: #dcfce7; }
+.mechanic-open.closed { color: #7c2d12; background: #fef3c7; }
+.mechanic-detail-row { display: flex; flex-wrap: wrap; gap: 12px; color: #334155; font: 600 12px var(--app-font-mono); }
+.mechanic-detail-row span { display: inline-flex; align-items: center; gap: 5px; }
+.mechanic-services { display: flex; flex-wrap: wrap; gap: 7px; }
+.mechanic-services span { padding: 6px 8px; color: #475569; background: #eef2f6; border-radius: 999px; font: 600 10px var(--app-font-mono); }
+.mechanic-actions { display: flex; gap: 10px; margin-top: auto; }
+.mechanic-action { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 0 12px; border-radius: 10px; border: 1px solid transparent; text-decoration: none; font: 600 11px var(--app-font-mono); letter-spacing: .06em; }
+.mechanic-action.call { color: #0f172a; background: #fff; border-color: #e2e8f0; }
+.mechanic-action.directions { color: white; background: #d71920; box-shadow: 0 10px 22px rgba(215,25,32,.18); }
 .footer { padding: 34px 0; color: #64748b; background: #0f172a; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
 .footer strong { display: block; color: white; font-size: 12px; letter-spacing: .11em; }
@@ -302,17 +351,19 @@ h1, h2, h3, p { margin: 0; }
 @keyframes car-shake { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
 @keyframes wheel-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes live-pulse { 0%,100% { opacity: .55; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.1); } }
-@media (max-width: 980px) { .hero-grid, .lab-layout, .input-lab, .architecture { grid-template-columns: 1fr; } .hero { padding-top: 55px; } .hero-copy { max-width: 680px; } .vehicle-stage { min-height: 390px; } }
+@media (max-width: 980px) { .hero-grid, .lab-layout, .input-lab, .architecture { grid-template-columns: 1fr; } .hero { padding-top: 55px; } .hero-copy { max-width: 680px; } .vehicle-stage { min-height: 390px; } .mechanic-list { grid-template-columns: 1fr; } }
 @media (max-width: 760px) {
   .wrap { width: min(100% - 28px, 610px); } .site-header { height: 66px; } .nav-links, .header-demo { display: none; } .menu-button { display: inline-grid; place-items: center; }
   .mobile-nav { position: absolute; top: 65px; left: 0; right: 0; padding: 10px 14px 16px; background: white; border-bottom: 1px solid #e2e8f0; box-shadow: 0 12px 25px rgba(15,23,42,.08); }
   .mobile-nav.open { display: grid; } .mobile-nav a { padding: 13px 0; color: #334155; border-bottom: 1px solid #f1f5f9; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-decoration: none; }
   .hero { padding: 43px 0 26px; } .hero h1 { font-size: clamp(40px, 12vw, 58px); } .hero-facts { gap: 15px; } .vehicle-stage { min-height: 286px; padding: 13px; border-radius: 19px; } .vehicle-stage::after { inset: 10px; border-radius: 15px; }
   .stage-code, .stage-status, .stage-tag { font-size: 8px; } .stage-code { top: 14px; left: 15px; } .stage-status { top: 14px; right: 15px; } .stage-tag { left: 15px; bottom: 13px; } .vehicle-controls { right: 13px; bottom: 10px; }
-   .section { padding: 67px 0; } .section-head { display: block; } .section-head p { margin-top: 16px; } .sensors-grid, .compare-grid { grid-template-columns: 1fr; }
-   .four-tyre-dashboard { padding: 15px; } .four-tyre-topbar { display: block; } .four-tyre-topbar h3 { font-size: 18px; } .connection-cluster { justify-content: flex-start; margin-top: 14px; gap: 8px; } .four-tyre-content { grid-template-columns: 1fr; } .tyre-telemetry-grid { gap: 8px; } .tyre-telemetry-card { padding: 13px; } .tyre-card-heading strong { display: inline-block; max-width: 68px; line-height: 1.2; vertical-align: middle; } .tyre-pressure strong { font-size: 25px; } .tyre-metrics dt { font-size: 8px; } .tyre-metrics dd { font-size: 10px; } .top-view-stage { min-height: 330px; } .top-view-car { width: 30%; left: 35%; } .top-view-tyre.fl { left: 20%; } .top-view-tyre.fr { right: 20%; } .top-view-tyre.rl { left: 20%; } .top-view-tyre.rr { right: 20%; } .four-tyre-summary { flex-wrap: wrap; gap: 13px; } .summary-note { width: 100%; margin-left: 0; }
-   .phone-monitor { padding: 67px 0; } .phone-monitor-head { display: block; } .phone-monitor-head p { margin-top: 16px; } .phone-monitor-card { grid-template-columns: 1fr; padding: 17px; } .phone-monitor-copy { padding: 4px 4px 8px; } .pairing-panel { grid-template-columns: .9fr 1.1fr; padding: 12px; } .qr-card { min-height: 216px; } .phone-preview { min-height: 232px; } .phone-screen { min-height: 200px; }
+  .section { padding: 67px 0; } .section-head { display: block; } .section-head p { margin-top: 16px; } .sensors-grid, .compare-grid { grid-template-columns: 1fr; }
+  .four-tyre-dashboard { padding: 15px; } .four-tyre-topbar { display: block; } .four-tyre-topbar h3 { font-size: 18px; } .connection-cluster { justify-content: flex-start; margin-top: 14px; gap: 8px; } .four-tyre-content { grid-template-columns: 1fr; } .tyre-telemetry-grid { gap: 8px; } .tyre-telemetry-card { padding: 13px; } .tyre-card-heading strong { display: inline-block; max-width: 68px; line-height: 1.2; vertical-align: middle; } .tyre-pressure strong { font-size: 25px; } .tyre-metrics dt { font-size: 8px; } .tyre-metrics dd { font-size: 10px; } .top-view-stage { min-height: 330px; } .top-view-car { width: 30%; left: 35%; } .top-view-tyre.fl { left: 20%; } .top-view-tyre.fr { right: 20%; } .top-view-tyre.rl { left: 20%; } .top-view-tyre.rr { right: 20%; } .four-tyre-summary { flex-wrap: wrap; gap: 13px; } .summary-note { width: 100%; margin-left: 0; }
+  .phone-monitor { padding: 67px 0; } .phone-monitor-head { display: block; } .phone-monitor-head p { margin-top: 16px; } .phone-monitor-card { grid-template-columns: 1fr; padding: 17px; } .phone-monitor-copy { padding: 4px 4px 8px; } .pairing-panel { grid-template-columns: .9fr 1.1fr; padding: 12px; } .qr-card { min-height: 216px; } .phone-preview { min-height: 232px; } .phone-screen { min-height: 200px; }
   .result-top { align-items: center; } .health-ring { width: 137px; height: 137px; } .health-ring-copy strong { font-size: 30px; } .form-grid { grid-template-columns: 1fr; }
+  .assistance-status-row { display: block; } .assistance-status { width: 100%; } .assistance-banner { top: 72px; display: grid; gap: 12px; padding: 16px; } .assistance-banner-button { width: 100%; }
+  .mechanic-modal-overlay { padding: 16px; } .mechanic-modal { width: min(100%, 100%); padding: 18px 16px 16px; } .mechanic-modal-header { display: block; } .mechanic-alert-box { padding: 14px; } .mechanic-values-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .mechanic-section-header { display: block; } .mechanic-demo-tag { margin-top: 12px; }
   .flow-list { grid-template-columns: 1fr; gap: 7px; } .flow-step { padding: 16px 0 16px 18px; border-top: 0; border-left: 1px solid #cbd5e1; } .flow-step:not(:last-child)::after { content: '↓'; right: auto; left: -6px; top: auto; bottom: -14px; }
   .footer-inner { display: block; } .footer-note { margin-top: 17px; }
 }
