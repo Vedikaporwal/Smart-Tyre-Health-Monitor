@@ -13,7 +13,7 @@ import { VehicleVisual } from './components/vehicle-visual';
 import { Workflow } from './components/workflow';
 import { PhoneMonitor } from './components/phone-monitor';
 import { FourTyreMonitor } from './components/four-tyre-monitor';
-import brandLogo from './assets/brand-logo.svg';
+import brandLogo from './assets/WhatsApp Image 2026-10-05 at 7.02.48 PM.jpeg';
 import {
   DEMO_MECHANICS,
   buildDirectionsUrl,
@@ -62,7 +62,7 @@ function Header({ onDemo }: { onDemo: () => void }) {
       <div className="wrap header-inner">
         <a className="brand-lockup" href="#home" onClick={() => setMenuOpen(false)} data-testid="link-home">
           <img className="brand-logo" src={brandLogo} alt="MYBHARAT" />
-          <span className="brand-context"><strong>MYBHARAT</strong><span>SKILL OLYMPIAD 2026</span></span>
+          <span className="brand-context"><strong>MYBHARAT</strong><span>Idea Generation Competition</span></span>
         </a>
         <nav className="nav-links" aria-label="Main navigation">
           {navItems.map(([label, id]) => <a href={`#${id}`} key={id} onClick={() => navigate(id)} data-testid={`link-nav-${id}`}>{label}</a>)}
